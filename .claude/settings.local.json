@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm /mnt/d/task/coupon-inssuance/build.gradle /mnt/d/task/coupon-inssuance/settings.gradle)",
+      "Bash(rm -rf /mnt/d/task/coupon-inssuance/src)"
+    ]
+  }
+}
