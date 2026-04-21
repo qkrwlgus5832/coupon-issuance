@@ -3,7 +3,9 @@ rootProject.name = "coupon-issuance"
 include(
     "domain",
     "application",
-    "ui:api"
+    "ui:api",
+    "infra:redis",
+    "infra:lock"
 )
 
 makeProjectDir(rootProject, "subprojects")

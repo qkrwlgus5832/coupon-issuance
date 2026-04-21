@@ -17,9 +17,11 @@ class CouponOptimisticLock(
                 return couponService.inssuanceWithOptimisticLock(request)
             } catch (e: OptimisticLockingFailureException) {
                 if (retryCount++ >= 3) {
-                    throw RuntimeException("재시도 횟수 초과")
                     failedCount++
+                    throw RuntimeException("재시도 횟수 초과")
                 }
+
+                Thread.sleep(50)
             }
         }
     }

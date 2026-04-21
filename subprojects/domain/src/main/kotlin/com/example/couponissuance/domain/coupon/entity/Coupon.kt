@@ -33,6 +33,6 @@ class Coupon(
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null
 
-    @Version
-    var version: Long = 0
+//    @Version
+//    var version: Long = 0
 }

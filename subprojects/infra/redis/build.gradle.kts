@@ -1,6 +1,5 @@
 dependencies {
-    api(project(":domain"))
-    api(project(":infra:lock"))
+    api("org.redisson:redisson-spring-boot-starter:4.3.1")
 }
 
 tasks {
