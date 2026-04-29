@@ -1,7 +1,7 @@
-package com.example.couponissuance.service.coupon.extension
+package com.example.couponissuance.application.coupon.extension
 
 import com.example.couponissuance.domain.coupon.entity.Coupon
-import com.example.couponissuance.service.coupon.response.CouponDto
+import com.example.couponissuance.application.coupon.response.CouponDto
 
 
 object CouponExtension {

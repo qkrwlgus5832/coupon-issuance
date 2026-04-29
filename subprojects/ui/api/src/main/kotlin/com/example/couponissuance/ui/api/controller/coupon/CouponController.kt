@@ -1,12 +1,11 @@
 package com.example.couponissuance.ui.api.controller.coupon
 
-import com.example.couponissuance.service.coupon.request.CreateRequest
-import com.example.couponissuance.service.coupon.request.InssuanceRequest
-import com.example.couponissuance.service.coupon.response.CreateResponse
-import com.example.couponissuance.service.coupon.response.InssuanceResponse
-import com.example.couponissuance.service.coupon.service.CouponDistributedLock
-import com.example.couponissuance.service.coupon.service.CouponOptimisticLock
-import com.example.couponissuance.service.coupon.service.CouponService
+import com.example.couponissuance.application.coupon.request.CreateRequest
+import com.example.couponissuance.application.coupon.request.InssuanceRequest
+import com.example.couponissuance.application.coupon.response.CreateResponse
+import com.example.couponissuance.application.coupon.response.InssuanceResponse
+import com.example.couponissuance.application.coupon.lock.CouponOptimisticLock
+import com.example.couponissuance.application.coupon.service.CouponService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

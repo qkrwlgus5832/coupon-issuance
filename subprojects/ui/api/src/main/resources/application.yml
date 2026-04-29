@@ -33,3 +33,13 @@ server:
     threads:
       max: 1200
     accept-count: 2000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, beans, httptrace, info, metrics, prometheus, env
+  prometheus:
+    metrics:
+      export:
+        enabled: true

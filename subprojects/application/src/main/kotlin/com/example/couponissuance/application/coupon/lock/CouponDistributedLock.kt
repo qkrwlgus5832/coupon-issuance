@@ -1,11 +1,9 @@
-package com.example.couponissuance.service.coupon.service
+package com.example.couponissuance.application.coupon.lock
 
-import com.example.couponissuance.domain.coupon.entity.CouponLog
 import com.example.couponissuance.infra.redis.service.RedisService
-import com.example.couponissuance.service.coupon.extension.CouponExtension.toDto
-import com.example.couponissuance.service.coupon.request.InssuanceRequest
-import com.example.couponissuance.service.coupon.response.InssuanceResponse
-import org.springframework.stereotype.Component
+import com.example.couponissuance.application.coupon.request.InssuanceRequest
+import com.example.couponissuance.application.coupon.response.InssuanceResponse
+import com.example.couponissuance.application.coupon.service.CouponService
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
 

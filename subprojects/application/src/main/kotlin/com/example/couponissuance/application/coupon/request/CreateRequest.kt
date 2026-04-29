@@ -1,4 +1,4 @@
-package com.example.couponissuance.service.coupon.request
+package com.example.couponissuance.application.coupon.request
 
 data class CreateRequest (
     val name: String,

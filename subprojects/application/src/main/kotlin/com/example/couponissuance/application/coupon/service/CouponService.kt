@@ -1,4 +1,4 @@
-package com.example.couponissuance.service.coupon.service
+package com.example.couponissuance.application.coupon.service
 
 import com.example.couponissuance.domain.coupon.entity.Coupon
 import com.example.couponissuance.domain.coupon.entity.CouponLog
@@ -6,11 +6,11 @@ import com.example.couponissuance.domain.coupon.repository.CouponLogRepository
 import com.example.couponissuance.domain.coupon.repository.CouponRepository
 import com.example.couponissuance.infra.lock.DistributedLock
 import com.example.couponissuance.infra.redis.service.RedisService
-import com.example.couponissuance.service.coupon.extension.CouponExtension.toDto
-import com.example.couponissuance.service.coupon.request.CreateRequest
-import com.example.couponissuance.service.coupon.request.InssuanceRequest
-import com.example.couponissuance.service.coupon.response.CreateResponse
-import com.example.couponissuance.service.coupon.response.InssuanceResponse
+import com.example.couponissuance.application.coupon.extension.CouponExtension.toDto
+import com.example.couponissuance.application.coupon.request.CreateRequest
+import com.example.couponissuance.application.coupon.request.InssuanceRequest
+import com.example.couponissuance.application.coupon.response.CreateResponse
+import com.example.couponissuance.application.coupon.response.InssuanceResponse
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 

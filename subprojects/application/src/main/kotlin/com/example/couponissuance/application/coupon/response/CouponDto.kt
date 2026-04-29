@@ -1,4 +1,4 @@
-package com.example.couponissuance.service.coupon.response
+package com.example.couponissuance.application.coupon.response
 
 import java.time.LocalDateTime
 

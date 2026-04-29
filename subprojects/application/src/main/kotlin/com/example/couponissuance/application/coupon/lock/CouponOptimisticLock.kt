@@ -1,7 +1,8 @@
-package com.example.couponissuance.service.coupon.service
+package com.example.couponissuance.application.coupon.lock
 
-import com.example.couponissuance.service.coupon.request.InssuanceRequest
-import com.example.couponissuance.service.coupon.response.InssuanceResponse
+import com.example.couponissuance.application.coupon.request.InssuanceRequest
+import com.example.couponissuance.application.coupon.response.InssuanceResponse
+import com.example.couponissuance.application.coupon.service.CouponService
 import org.springframework.dao.OptimisticLockingFailureException
 import org.springframework.stereotype.Service
 
