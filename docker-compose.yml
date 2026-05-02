@@ -39,6 +39,16 @@ services:
       - "3535:3000"
     networks:
       calendars_network:
+  redis-exporter:
+    container_name: redis-exporter
+    image: oliver006/redis_exporter:latest
+    environment:
+      - REDIS_ADDR=redis://host.docker.internal:6379
+    ports:
+      - 9121:9121
+    restart: always
+    networks:
+      calendars_network:
 networks:
   calendars_network:
     driver: bridge
