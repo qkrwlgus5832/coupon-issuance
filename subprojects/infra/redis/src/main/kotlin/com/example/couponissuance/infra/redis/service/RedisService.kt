@@ -22,4 +22,16 @@ class RedisService(
 
     fun getLock(key: String): RLock =
         redissonClient.getLock(key)
+
+    fun setStock(key: String, count: Long) =
+        redissonClient.getAtomicLong(key).set(count)
+
+    fun decrement(key: String): Long =
+        redissonClient.getAtomicLong(key).decrementAndGet()
+
+    fun increment(key: String): Long =
+        redissonClient.getAtomicLong(key).incrementAndGet()
+
+    fun getStock(key: String): Long =
+        redissonClient.getAtomicLong(key).get()
 }

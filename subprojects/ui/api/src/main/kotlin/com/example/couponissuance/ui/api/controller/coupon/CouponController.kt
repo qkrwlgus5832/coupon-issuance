@@ -29,6 +29,11 @@ class CouponController(
         return couponService.createCoupon(request)
     }
 
+    @PostMapping("/inssuance/redis")
+    fun inssuanceWithRedisDecr(@RequestBody request: InssuanceRequest): InssuanceResponse {
+        return couponService.inssuanceWithRedisDecr(request)
+    }
+
     @GetMapping("/failedCount")
     fun getFailedCount(): Int {
         return couponOptimisticLock.failedCount
