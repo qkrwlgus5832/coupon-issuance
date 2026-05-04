@@ -63,17 +63,11 @@ class CouponService(
 
     @Transactional
     fun inssuanceWithRedisDecr(request: InssuanceRequest): InssuanceResponse {
-        val stock = redisService.decrement("$COUPON_STOCK_KEY${request.couponId}")
-        if (stock < 0) {
-            redisService.increment("$COUPON_STOCK_KEY${request.couponId}")
+        val stock = redisService.decrementStock("$COUPON_STOCK_KEY${request.couponId}")
+        if (stock == -1L) {
             throw RuntimeException("쿠폰이 모두 소진되었습니다 !")
         }
-
-        val updated = couponRepository.decrementCount(request.couponId)
-        if (updated == 0) {
-            throw RuntimeException("쿠폰이 모두 소진되었습니다 !")
-        }
-
+        couponRepository.decrementCount(request.couponId)
         val coupon = couponRepository.findById(request.couponId).get()
         return InssuanceResponse(isSuccess = true, coupon = coupon.toDto())
     }

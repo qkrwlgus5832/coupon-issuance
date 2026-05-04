@@ -1,6 +1,7 @@
 package com.example.couponissuance.infra.redis.service
 
 import org.redisson.api.RLock
+import org.redisson.api.RScript
 import org.redisson.api.RedissonClient
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
@@ -34,4 +35,21 @@ class RedisService(
 
     fun getStock(key: String): Long =
         redissonClient.getAtomicLong(key).get()
+
+    fun decrementStock(key: String): Long {
+        val script = """
+            local stock = redis.call('DECR', KEYS[1])
+            if tonumber(stock) < 0 then
+                redis.call('INCR', KEYS[1])
+                return -1
+            end
+            return stock
+        """.trimIndent()
+        return redissonClient.script.eval(
+            RScript.Mode.READ_WRITE,
+            script,
+            RScript.ReturnType.LONG,
+            listOf(key)
+        )
+    }
 }

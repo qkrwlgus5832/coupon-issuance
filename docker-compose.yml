@@ -22,7 +22,7 @@ services:
       - "mode=standalone"
     # 컨테이너 종료시 재시작 여부 설정
     restart: always
-    command: redis-server /usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --protected-mode no --bind 0.0.0.0
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus-calendars-container
