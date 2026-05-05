@@ -1,54 +1,125 @@
-# 파일 규격 버전
 version: "3.8"
 
-# 실행하려는 컨테이너들 정의
 services:
-  # 서비스명
-  redis_container:
-    # 사용할 이미지
+  redis-node-1:
     image: redis:latest
-    # 컨테이너명
-    container_name: redis_test
-    # 접근 포트 설정(컨테이너 외부:컨테이너 내부)
+    container_name: redis-node-1
     ports:
-      - 6379:6379
-    # 스토리지 마운트(볼륨) 설정
+      - "7001:7001"
+      - "17001:17001"
     volumes:
-      - ./redis/data:/data
-      - ./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
-    # 컨테이너에 docker label을 이용해서 메타데이터 추가
-    labels:
-      - "name=redis"
-      - "mode=standalone"
-    # 컨테이너 종료시 재시작 여부 설정
-    restart: always
-    command: redis-server /usr/local/etc/redis/redis.conf --protected-mode no --bind 0.0.0.0
+      - ./redis/cluster/redis-1.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - calendars_network
+
+  redis-node-2:
+    image: redis:latest
+    container_name: redis-node-2
+    ports:
+      - "7002:7002"
+      - "17002:17002"
+    volumes:
+      - ./redis/cluster/redis-2.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - calendars_network
+
+  redis-node-3:
+    image: redis:latest
+    container_name: redis-node-3
+    ports:
+      - "7003:7003"
+      - "17003:17003"
+    volumes:
+      - ./redis/cluster/redis-3.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - calendars_network
+
+  redis-node-4:
+    image: redis:latest
+    container_name: redis-node-4
+    ports:
+      - "7004:7004"
+      - "17004:17004"
+    volumes:
+      - ./redis/cluster/redis-4.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - calendars_network
+
+  redis-node-5:
+    image: redis:latest
+    container_name: redis-node-5
+    ports:
+      - "7005:7005"
+      - "17005:17005"
+    volumes:
+      - ./redis/cluster/redis-5.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - calendars_network
+
+  redis-node-6:
+    image: redis:latest
+    container_name: redis-node-6
+    ports:
+      - "7006:7006"
+      - "17006:17006"
+    volumes:
+      - ./redis/cluster/redis-6.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - calendars_network
+
+  redis-cluster-init:
+    image: redis:latest
+    container_name: redis-cluster-init
+    depends_on:
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+      - redis-node-4
+      - redis-node-5
+      - redis-node-6
+    command: >
+      sh -c "sleep 3 && redis-cli --cluster create
+      redis-node-1:7001 redis-node-2:7002 redis-node-3:7003
+      redis-node-4:7004 redis-node-5:7005 redis-node-6:7006
+      --cluster-replicas 1 --cluster-yes"
+    networks:
+      - calendars_network
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus-calendars-container
     volumes:
       - ./config/prometheus/prometheus-local.yml:/etc/prometheus/prometheus.yml
     ports:
-      - "9090:9090"
+     - "9090:9090"
     networks:
-      calendars_network:
+     - calendars_network
+
   grafana:
     image: grafana/grafana:latest
     container_name: grafana-calendars-local
     ports:
       - "3535:3000"
     networks:
-      calendars_network:
+      - calendars_network
+
   redis-exporter:
     container_name: redis-exporter
     image: oliver006/redis_exporter:latest
     environment:
-      - REDIS_ADDR=redis://host.docker.internal:6379
+      - REDIS_ADDR=redis://redis-node-1:7001
     ports:
-      - 9121:9121
+      - "9121:9121"
     restart: always
     networks:
-      calendars_network:
+      - calendars_network
+
 networks:
   calendars_network:
     driver: bridge
