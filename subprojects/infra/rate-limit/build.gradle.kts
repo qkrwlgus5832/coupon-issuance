@@ -1,7 +1,6 @@
 dependencies {
-    api(project(":domain"))
-    api(project(":infra:lock"))
-    api(project(":infra:rate-limit"))
+    api("org.springframework.boot:spring-boot-starter-aspectj")
+    api(project(":infra:redis"))
 }
 
 tasks {

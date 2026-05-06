@@ -6,6 +6,8 @@ import com.example.couponissuance.application.coupon.response.CreateResponse
 import com.example.couponissuance.application.coupon.response.InssuanceResponse
 import com.example.couponissuance.application.coupon.lock.CouponOptimisticLock
 import com.example.couponissuance.application.coupon.service.CouponService
+import com.example.couponissuance.infra.ratelimit.RateLimit
+import java.util.concurrent.TimeUnit
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,6 +22,12 @@ class CouponController(
 ) {
 
     @PostMapping("/inssuance")
+    @RateLimit(
+        key = "#request.userName",
+        limit = 5,
+        window = 1,
+        timeUnit = TimeUnit.MINUTES,
+    )
     fun inssuance(@RequestBody request: InssuanceRequest): InssuanceResponse {
         return couponService.inssuanceWithDistributedLock(request)
     }
